@@ -1,0 +1,108 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(dplyr)
+library(readr)
+library(tidyverse)
+library(plotly)
+```
+
+```{r}
+survey <- read.csv('https://raw.githubusercontent.com/merfurfu/sda4901/main/mastersurveyedit.csv')
+str(survey)
+```
+```{r}
+hist(survey$Pre...AV.confidence , breaks = 7)
+hist(survey$Post...AV.confidence , breaks = 7)
+```
+```{r}
+hist(survey$Pre...AV.security , breaks = 7)
+hist(survey$Post...AV.security , breaks = 7)
+```
+```{r}
+hist(survey$Pre...AV.dependability , breaks = 7)
+hist(survey$Post...AV.dependability , breaks = 7)
+```
+```{r}
+hist(survey$Pre...AV.Trust , breaks = 7)
+hist(survey$Post...AV.Trust  , breaks = 7)
+```
+
+
+
+```{r}
+survey %>%
+  plot_ly(x = ~Pre....AV.deceptive) %>%
+  add_histogram()
+
+survey %>%
+  plot_ly(x = ~Post....AV.deceptive) %>%
+  add_histogram()
+```
+
+```{r}
+survey %>%
+  plot_ly(x = ~Pre...AV.underhanded) %>%
+  add_histogram()
+
+survey %>%
+  plot_ly(x = ~Post...AV.underhanded) %>%
+  add_histogram()
+```
+```{r}
+survey %>%
+  plot_ly(x = ~Pre...Suspicious.Intent ) %>%
+  add_histogram()
+
+survey %>%
+  plot_ly(x = ~Post...Suspicious.Intent ) %>%
+  add_histogram()
+```
+
+```{r}
+survey %>%
+  plot_ly(x = ~Pre...AV.wariness ) %>%
+  add_histogram()
+
+survey %>%
+  plot_ly(x = ~Post...AV.wariness   ) %>%
+  add_histogram()
+
+```
+```{r}
+survey %>%
+  plot_ly(x = ~Pre...harmful.outcome   ) %>%
+  add_histogram()
+
+survey %>%
+  plot_ly(x = ~Post...harmful.outcome   ) %>%
+  add_histogram()
+
+```
+```{r}
+p <- ggplot(data = survey, 
+            mapping = aes(x = Avg.Walking.Hrs, y = Post...Suspicious.Intent))
+p + geom_point(aes(color = Age))
+```
+```{r}
+survey %>%
+  #count(fh,dictator) %>%
+  plot_ly(x = ~Age, 
+          y = ~Post...AV.Trust 
+          #color = ~Avg.Walking.Hrs
+          ) %>%
+  add_boxplot() #%>%
+  #layout(barmode = "stack")
+
+
+survey %>%
+  #count(fh,dictator) %>%
+  plot_ly(x = ~Age, 
+          y = ~Pre...AV.Trust 
+          #color = ~Avg.Walking.Hrs
+          ) %>%
+  add_boxplot() 
+```
+
